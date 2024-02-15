@@ -1,0 +1,188 @@
+<div>
+    <div class="row" [formGroup]="userForm">
+        <div class="col-md-4">
+            <img [src]="url" height="200" width="200">
+
+
+            <p>
+                <label for="image" class="mt-1 ms-5">Upload Image</label>
+                <input type="file" style="display: none;" id="image" (change)="selectFile($event)" formControlName="photo" >
+            </p>
+            <div *ngIf="userForm.get('photo')?.touched || userForm.get('photo')?.dirty" class="d-block">
+                <div class="invalid-feedback d-block" *ngIf="userForm.get('photo')?.errors?.['required']">
+                    photo is required field*
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div >
+                <div class="d-flex">
+                    <div class="d-block">
+                        <input class="form-control" type="text" placeholder="Name" aria-label="default input example"
+                            formControlName="fName">
+                        <div *ngIf="userForm.get('fName')?.touched || userForm.get('fName')?.dirty" class="d-block">
+                            <div class="invalid-feedback d-block" *ngIf="userForm.get('fName')?.errors?.['required']">
+                                It is required field*
+                            </div>
+                            <div class="invalid-feedback d-block" *ngIf="userForm.get('fName')?.errors?.['pattern']">
+                                Max length allowed is 20*
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="d-block">
+                        <input class="form-control  ms-2 " type="text" placeholder="Last Name"
+                            aria-label="default input example" formControlName="lName">
+                        <div *ngIf="userForm.get('lName')?.touched || userForm.get('lName')?.dirty" class="d-block">
+                            <div class="invalid-feedback d-block" *ngIf="userForm.get('lName')?.errors?.['required']">
+                                It is required field*
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <input class="form-control mt-2" type="text" placeholder="Email" aria-label="default input example"
+                    formControlName="email">
+                <div *ngIf="userForm.get('email')?.touched || userForm.get('email')?.dirty" class="d-block">
+                    <div class="invalid-feedback d-block" *ngIf="userForm.get('email')?.errors?.['required']">
+                        It is required field*
+                    </div>
+                </div>
+                <input class="form-control mt-2" type="text" placeholder="Phone Number"
+                    aria-label="default input example" formControlName="phone">
+                <div *ngIf="userForm.get('phone')?.touched || userForm.get('phone')?.dirty" class="d-block">
+                    <div class="invalid-feedback d-block" *ngIf="userForm.get('phone')?.errors?.['required']">
+                        It is required field*
+                    </div>
+                </div>
+
+
+                <div class="d-flex mt-2">
+
+                    <div class="container d-flex">
+                        <p class="me-2"> Age</p>
+                        <input type="range" class="form-range w-75" id="ageSlider" min="18" max="99" value="18"
+                            (input)="updateAge($event)" formControlName="age">
+                        <p class="ms-2">Age : {{selectedAge}}</p>
+                    </div>
+
+                    <div *ngIf="userForm.get('age')?.invalid" class="d-block">
+                        <div class="invalid-feedback d-block" *ngIf="userForm.get('age')?.errors?.['required']">
+                            Age is required field*
+                        </div>
+                    </div>
+
+                </div>
+                <select class="form-select" aria-label="Default select example" formControlName="state">
+                    <option value="">select State</option>
+                    <option *ngFor="let state of states; let i = index " value="{{state}}">{{state}}</option>
+                </select>
+                <div *ngIf="userForm.get('state')?.touched || userForm.get('state')?.dirty" class="d-block">
+                    <div class="invalid-feedback d-block" *ngIf="userForm.get('state')?.errors?.['required']">
+                        State is required field*
+                    </div>
+                </div>
+
+
+                <select class="form-select mt-2" aria-label="Default select example" formControlName="country"
+                   >
+                    <option value="">Select Country</option>
+                    <option value="India">India</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <div *ngIf="userForm.get('country')?.touched || userForm.get('country')?.dirty" class="d-block">
+                    <div class="invalid-feedback d-block" *ngIf="userForm.get('country')?.errors?.['required']">
+                        Country is required field*
+                    </div>
+                </div>
+
+                <select class="form-select mt-2" aria-label="Default select example" formControlName="address"
+                    [(ngModel)]="Address1">
+                    <option value="">Select Address</option>
+                    <option value="home" >Home</option>
+                    <option value="company" >Company</option>
+                </select>
+                <div *ngIf="userForm.get('address')?.touched || userForm.get('address')?.dirty" class="d-block">
+                    <div *ngIf="userForm.get('address1')?.pristine || userForm.get('companyAdd1')?.pristine"
+                        class="d-block">
+
+                        <div class="invalid-feedback d-block">
+                            Home and comapany details are mandetory*
+                        </div>
+                    </div>
+
+
+                    <div *ngIf="Address1=='home'">
+                        <input class="form-control mt-2" type="text" placeholder="Address 1"
+                            aria-label="default input example" formControlName="address1">
+                        <div *ngIf="userForm.get('address1')?.touched || userForm.get('address1')?.dirty"
+                            class="d-block">
+                            <div class="invalid-feedback d-block"
+                                *ngIf="userForm.get('address1')?.errors?.['required']">
+                                it is required field*
+                            </div>
+                        </div>
+                        <input class="form-control mt-2" type="text" placeholder="Address 2"
+                            aria-label="default input example" formControlName="address2">
+                        <div *ngIf="userForm.get('address2')?.touched || userForm.get('address2')?.dirty"
+                            class="d-block">
+                            <div class="invalid-feedback d-block"
+                                *ngIf="userForm.get('address2')?.errors?.['required']">
+                                it is required field*
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="Address1=='company'">
+                        <input class="form-control mt-2" type="text" placeholder="Company Address 1"
+                            aria-label="default input example" formControlName="companyAdd1">
+                        <div *ngIf="userForm.get('companyAdd1')?.touched || userForm.get('companyAdd1')?.dirty"
+                            class="d-block">
+                            <div class="invalid-feedback d-block"
+                                *ngIf="userForm.get('companyAdd1')?.errors?.['required']">
+                                it is required field*
+                            </div>
+                        </div>
+
+                        <input class="form-control mt-2" type="text" placeholder="Company Address 2"
+                            aria-label="default input example" formControlName="companyAdd2">
+                        <div *ngIf="userForm.get('companyAdd2')?.touched || userForm.get('companyAdd2')?.dirty"
+                            class="d-block">
+                            <div class="invalid-feedback d-block"
+                                *ngIf="userForm.get('companyAdd2')?.errors?.['required']">
+                                it is required field*
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-2">
+                    <mat-form-field class="w-100">
+                        <mat-label>Share Intrests</mat-label>
+                        <mat-chip-grid #chipGrid aria-label="Enter fruits">
+                            <mat-chip-row class="d-inline" *ngFor="let fruit of fruits" (removed)="remove(fruit)"
+                                [editable]="true" (edited)="edit(fruit, $event)">
+                                <div class="d-inline">{{fruit.name}}</div>
+                                <button matChipRemove [attr.aria-label]="'remove'">
+                                    <mat-icon>cancel</mat-icon>
+                                </button>
+                            </mat-chip-row>
+                            <input placeholder="Intrests..." [matChipInputFor]="chipGrid"
+                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+                                (matChipInputTokenEnd)="add($event)" />
+                        </mat-chip-grid>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-primary me-md-2" type="Sumbit" routerLink="/userList" [queryParams]="{'details' : userDetails}" (click)="onSubmit()" >Submit</button>
+              </div>
+        </div>
+       
+    </div>
+   
+</div>
